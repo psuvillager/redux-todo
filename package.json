@@ -1,0 +1,22 @@
+{
+  "name": "redux-todo",
+  "version": "1.0.0",
+  "description": "redux-todo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/psuvillager/redux-todo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/psuvillager/redux-todo/issues"
+  },
+  "homepage": "https://github.com/psuvillager/redux-todo#readme",
+  "dependencies": {
+    "redux": "^4.0.5"
+  }
+}
