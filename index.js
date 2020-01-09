@@ -26,6 +26,12 @@ const unsubscribe = store.subscribe( (suppressLogs = suppress) => {
 });
 
 // Dispatches some test actions
+store.dispatch(addTodo('Learn about actions'));
+store.dispatch(addTodo('Learn about reducers'));
+store.dispatch(addTodo('Learn about store'));
+store.dispatch(setVisibilityFilter(VisibilityFilters.SHOW_ACTIVE));
+store.dispatch(toggleTodo(0));
+store.dispatch(toggleTodo(1));
 
 // Stops listening to state updates
 unsubscribe();
