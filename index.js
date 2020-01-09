@@ -17,13 +17,13 @@ console.log(store.getState());
 
 // Every time the state changes, logs it (unless suppress == true)
 // Note that subscribe() returns a function for unregistering the listener
-const unsubscribe = store.subscribe(() => console.log(store.getState()))
-// Dispatch some actions
-store.dispatch(addTodo('Learn about actions'))
-store.dispatch(addTodo('Learn about reducers'))
-store.dispatch(addTodo('Learn about store'))
-store.dispatch(toggleTodo(0))
-store.dispatch(toggleTodo(1))
+let suppress;
+//suppress = true;
+const unsubscribe = store.subscribe( (suppressLogs = suppress) => {
+  if(!suppressLogs){
+    console.log(store.getState());
+  }
+});
 
 // Dispatches some test actions
 
