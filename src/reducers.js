@@ -18,19 +18,24 @@ function todoApp(state = initialState, action){
       return Object.assign({}, state, { todos: [...state.todos, newTodo] });
 
     case TOGGLE_TODO:
-      return Object.assign({}, state, {
-        todos: state.todos.map( (todo, ind) => {
-          if(ind === action.index){
-            console.log("toggleTodo:");
-            console.log(todo);
-            ///const updatedStatus = !todo.completed;
-            //return Object.assign({}, todo, { completed: updatedStatus } );
-          }
-        })
+      // Should probably be done using `map` or `reduce` instead of `forEach`
+
+      // Makes a copy of todos
+      const copyOfTodos = state.todos.map(todo => Object.assign({}, todo));
+
+      // Makes a (deep) copy of state using copyOfTodos
+      const copyOfState = Object.assign({}, state, { todos: copyOfTodos });
+
+
+      // Finds the todo with the matching index and toggles its `completed` prop
+      copyOfState.todos.forEach((todo, ind)=>{
+        if(ind === action.index){
+          todo.completed = !todo.completed;
+        }
       });
-      const newState = Object.assign({}, state);
-      newState.todos[action.index].completed = !newState.todos[action.index].completed;
-      return newState;
+
+      // Returns the mutated copy (leaving original state unchanged)
+      return copyOfState;
 
     case SET_VISIBILITY_FILTER:
       return Object.assign({}, state, { visibilityFilter: action.filter });
