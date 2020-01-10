@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/psuvillager/redux-todo#readme",
   "dependencies": {
+    "react": "^16.12.0",
+    "react-redux": "^7.1.3",
     "redux": "^4.0.5"
   }
 }
