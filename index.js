@@ -31,13 +31,13 @@ const stateHistory = [];
 stateHistory.push(store.getState());
 
 // Logs the initial state
-console.log(store.getState());
+//console.log(store.getState());
 
 // Every time the state changes
 //   - Add it to stateHistory
 //   - Log it (unless suppress == true)
 // (Note that subscribe() returns a function for unregistering the listener)
-let suppress; //suppress = true;
+let suppress; suppress = true;
 const unsubscribe = store.subscribe( (suppressLogs = suppress) => {
   stateHistory.push(store.getState);
   if(!suppressLogs){
