@@ -10,7 +10,17 @@ const
     setVisibilityFilter,
     VisibilityFilters
   } = require('./src/actions'),
-  { render } = require('./src/render');
+  {
+    buildShell,
+    buildUiDiv,
+    buildListDiv,
+    addOrRemoveClass,
+    fAppendToKnownParent,
+    fReplaceContentsOfKnownElement,
+    appendToContainerDiv,
+    replaceContentsOfListDiv
+  } = require('./src/render');
+
 
 // Defines the store by passing the root reducer to `createStore`
 const portNumber = 8000;
@@ -41,7 +51,8 @@ const handleRequest = (request, response) => {
   response.writeHead(200, {
     'Content-Type': 'text/html'
   });
-  response.write(render(store.getState()));
+  response.write(buildShell({renderNow: true}));
+  //response.write(render(store.getState()));
   //response.write(JSON.stringify(store.getState()));
   response.end();
 };
