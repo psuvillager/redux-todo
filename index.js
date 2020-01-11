@@ -12,6 +12,7 @@ const
   { render } = require('./src/render');
 
 // Defines the store by passing the root reducer to `createStore`
+const portNumber = 8000;
 const store = createStore(todoApp);
 
 // Defines a global history array and pushes the initial state to it
@@ -45,7 +46,7 @@ const handleRequest = (request, response) => {
 };
 
 // Sets up the server
-http.createServer(handleRequest).listen(8000);
+http.createServer(handleRequest).listen(portNumber);
 
 // Dispatches some test actions
 store.dispatch(addTodo('Learn about actions'));
