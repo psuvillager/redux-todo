@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/psuvillager/redux-todo#readme",
   "dependencies": {
+    "node-html-parser": "^1.1.17",
     "redux": "^4.0.5"
   }
 }
