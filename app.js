@@ -48,6 +48,7 @@ const handleRequest = (request, response) => {
   var server = http.createServer(function(request, response) {
     var path = url.parse(request.url).pathname;
     switch (path) {
+      case '/favicon.ico': break;
       case '/': path = '/index.html';
       case '/index.html':
       case '/HtmlPage1.html':
