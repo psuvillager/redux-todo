@@ -45,31 +45,36 @@ const handleRequest = (request, response) => {
   var fs = require('fs');
 */
   // (From: https://www.c-sharpcorner.com/article/creating-server-and-host-html-page-using-node-js)
-  var server = http.createServer(function(request, response) {
-    var path = url.parse(request.url).pathname;
-    switch (path) {
+  const server = http.createServer(function(request, response){
+    let path = url.parse(request.url).pathname;
+    switch(path){
       case '/favicon.ico': break;
       case '/': path = '/index.html';
       case '/index.html':
       case '/HtmlPage1.html':
-        fs.readFile(__dirname + path, function(error, data) {
-          if(error){ write404(error); }
-          else { response.writeHead(200, { 'Content-Type': 'text/html' }); response.end(Buffer.from(data)); }
+        fs.readFile(__dirname + path, function(error, data){
+          if(error){ serve404(request, response, path, error); }
+          else{ response.writeHead(200, { 'Content-Type': 'text/html' }); response.end(Buffer.from(data)); }
         });
         break;
-      default: write404("unknown file: " + path);
+      default: serve404(request, response, path, "unknown file: " + path);
     }
-
-    function write404(err){
-      console.log(err);
-      response.writeHead(404, { 'Content-Type': 'text/html' });
-      response.write(err.toString());
-      response.end();
-    }
-
   });
   server.listen(8082);
 
+  function serve404(req, res, path, err){
+    console.log(err);
+    fs.readFile(__dirname + '404', function(errorPageError, errorPageData){
+      if(errorPageError){
+        // In case the 404 page itself is not found
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end(errorPageError.toString());
+      }
+      else{
+        res.writeHead(404, { 'Content-Type': 'text/html' });
+        res.end(Buffer.from(errorPageData)); }
+    });
+  }
 
   /*
   fs.readFile('./index.txt', function(error, data){
