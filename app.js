@@ -13,7 +13,8 @@ const
     setVisibilityFilter,
     VisibilityFilters
   } = require('./src/actions'),
-  { render } = require('./src/render');
+  { render } = require('./src/render'),
+  PORT_NUMBER = 8082;
 
 /*
 // Defines the store by passing the root reducer to `createStore`
@@ -46,6 +47,7 @@ const handleRequest = (request, response) => {
 */
   // (From: https://www.c-sharpcorner.com/article/creating-server-and-host-html-page-using-node-js)
   const server = http.createServer(function(request, response){
+  server.listen(PORT_NUMBER);
     let path = url.parse(request.url).pathname;
     switch(path){
       case '/favicon.ico': break;
@@ -60,7 +62,6 @@ const handleRequest = (request, response) => {
       default: serve404(request, response, path, "unknown file: " + path);
     }
   });
-  server.listen(8082);
 
   function serve404(req, res, path, err){
     console.log(err);
