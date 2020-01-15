@@ -46,22 +46,26 @@ const handleRequest = (request, response) => {
   var fs = require('fs');
 */
   // (From: https://www.c-sharpcorner.com/article/creating-server-and-host-html-page-using-node-js)
-  const server = http.createServer(function(request, response){
+  const server = http.createServer(handleRequest);
   server.listen(PORT_NUMBER);
+
+  function handleRequest(request, response){
     let path = url.parse(request.url).pathname;
     switch(path){
-      case '/favicon.ico': break;
-      case '/': path = '/index.html';
-      case '/index.html':
-      case '/HtmlPage1.html':
+      case '/favicon.ico': break; // Does nothing
+      case '/': path = '/index.html'; // Uses main page
+      case '/index.html': // Continues to next case
+      case '/HtmlPage1.html': // Tries to read file at `path` and responds accordingly
         fs.readFile(__dirname + path, function(error, data){
+          // Calls `serve404` if necessary
           if(error){ serve404(request, response, path, error); }
+          // Otherwise, converts file object to a Buffer, and write it to response
           else{ response.writeHead(200, { 'Content-Type': 'text/html' }); response.end(Buffer.from(data)); }
         });
         break;
       default: serve404(request, response, path, "unknown file: " + path);
     }
-  });
+  }
 
   function serve404(req, res, path, err){
     console.log(err);
