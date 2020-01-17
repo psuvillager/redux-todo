@@ -57,6 +57,9 @@ function handleRequest(request, response){
         // Otherwise, converts file object to a Buffer, and writes it to response
         else{
           response.writeHead(200, { 'Content-Type': 'text/html' });
+
+          // Parsing and manipulating HTML on the server is complicated so
+          //   either use jsdom or just build the markup out of JS strings
           response.write(Buffer.from(data)); }
           response.end();
       });
